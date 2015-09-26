@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using Domain.Common;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -39,7 +41,7 @@ namespace Tests
             {
                 {25.6, 0}, {0, 12.8}
             });
-
+            
             for (int i = 0; i < result.ColumnCount; i++)
             {
                 for (int j = 0; j < result.RowCount; j++)
@@ -47,6 +49,36 @@ namespace Tests
                     Assert.AreEqual(expected.Row(i)[j], result.Row(i)[j]);
                 }
             }
+        }
+
+
+        [TestMethod]
+        public void Transpose()
+        {
+            Matrix<double> M = DenseMatrix.OfArray(new double[,]
+            {
+                {1, 2}, {3, 4}
+            });
+            
+            var result = M.Transpose();
+
+            for (int i = 0; i < M.ColumnCount; i++)
+            {
+                for (int j = 0; j < M.RowCount; j++)
+                {
+                    Assert.AreEqual(result.Row(j)[i], M.Row(i)[j]);
+                }
+            }
+        }
+
+        //проверить здесь http://www.webmath.ru/web/prog16_3.php
+        [TestMethod]
+        public void ToUpperTriangle()
+        {
+            Matrix<double> B = DenseMatrix.OfArray(new double[,]
+            {
+                {11, 2,4,1}, {43,54,4, 5},{23,54,66,74},{47,5,34,5}
+            });
         }
     }
 }
