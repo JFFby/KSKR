@@ -9,8 +9,10 @@ namespace Domain.Common
             Vector<double> r,
             Vector<double> movementU,
             Vector<double> speedU,
-            Vector<double> accelerationU)
+            Vector<double> accelerationU,
+            Vector<double> nextStateMovementU)
         {
+            NextStateMovementU = nextStateMovementU;
             AccelerationU = accelerationU;
             SpeedU = speedU;
             Time = time;
@@ -27,5 +29,7 @@ namespace Domain.Common
         public Vector<double> SpeedU { get; private set; }
 
         public Vector<double> AccelerationU { get; private set; }
+
+        public Vector<double> NextStateMovementU { get; private set; } 
     }
 }

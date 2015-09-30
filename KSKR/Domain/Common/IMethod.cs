@@ -4,6 +4,6 @@ namespace Domain.Common
 {
     public interface IMethod
     {
-        IList<State> Solve(State initialState);
+        IList<State> Solve(Inputs initialState);
     }
 }

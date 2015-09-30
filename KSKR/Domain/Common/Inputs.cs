@@ -22,5 +22,10 @@ namespace Domain.Common
         {
             get { return Alpha * K + Beta * M; }
         }
+
+        public Vector<double> MovementU { get; set; }
+
+        public Vector<double> SpeedU { get; set; }
+        public LoadsVector R { get; set; }
     }
 }
