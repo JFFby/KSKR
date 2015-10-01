@@ -59,6 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CentralDifferenceTest.cs" />
     <Compile Include="NCalcTest.cs" />
     <Compile Include="NumericsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

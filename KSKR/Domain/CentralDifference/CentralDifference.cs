@@ -35,7 +35,7 @@ namespace Domain.CentralDifference
         private IList<State> Solve(State initState)
         {
             var ic = PrepareIntegrationConstants();
-            var states = new List<State> { initState };
+            var states = new List<State> ();
             var pastU = initState.MovementU - Inputs.DeltaT * initState.SpeedU + ic[3] * initState.AccelerationU;
             var effectiveM = ic[0] * Inputs.M + ic[1] * Inputs.C;
             states.Add(AdjustInitialState(initState, ic[2], ic[0], ic[1], pastU, effectiveM));
