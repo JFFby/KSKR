@@ -53,6 +53,7 @@
     <Compile Include="Common\Inputs.cs" />
     <Compile Include="Common\LoadsVector.cs" />
     <Compile Include="Common\State.cs" />
+    <Compile Include="Habolt\Habolt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

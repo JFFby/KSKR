@@ -59,9 +59,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CentralDifferenceTest.cs" />
-    <Compile Include="NCalcTest.cs" />
-    <Compile Include="NumericsTest.cs" />
+    <Compile Include="Helpers\TestHelper.cs" />
+    <Compile Include="Methods\CentralDifferenceTest.cs" />
+    <Compile Include="Methods\HaboltTest.cs" />
+    <Compile Include="Libs\NCalcTest.cs" />
+    <Compile Include="Libs\NumericsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

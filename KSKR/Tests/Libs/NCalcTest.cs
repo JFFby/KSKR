@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NCalc;
 using Expression = NCalc.Expression;
@@ -30,6 +31,15 @@ namespace Tests
             var expr = new Expression("1.0");
             var result = (double)expr.Evaluate();
             Assert.AreEqual(1d, result);
+        }
+
+        [TestMethod]
+        public void SimpeValue2()
+        {
+            var vactor = new string[] {"1 + 2.0 - 0.3"};
+            var expr = new LoadsVector(vactor);
+            var result = expr.ToVector();
+            Assert.AreEqual(1.7d, result[0]);
         }
 
         [TestMethod]
