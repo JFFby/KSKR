@@ -39,7 +39,7 @@ namespace Tests
             var vactor = new string[] {"1 + 2.0 - 0.3"};
             var expr = new LoadsVector(vactor);
             var result = expr.ToVector();
-            Assert.AreEqual(1.7d, result[0]);
+            Assert.AreEqual(2.7d, result[0]);
         }
 
         [TestMethod]
