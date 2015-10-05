@@ -8,21 +8,7 @@ namespace Domain.Common
 {
     public delegate void InputsUpdate();
 
-    //TODO: 
-    /// <summary>
-    /// matrix k (as matrix M)
-    /// alpha
-    /// betha
-    /// U (as matrix M)
-    /// U' (as matrix M)
-    /// R (as matrix M)
-    /// T0
-    /// Tk
-    /// dT
-    /// Methods selection
-    /// </summary>
-
-    [JsonObject(MemberSerialization.OptIn)]
+   [JsonObject(MemberSerialization.OptIn)]
     public class Inputs
     {
         [JsonProperty]
