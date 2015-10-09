@@ -5,15 +5,8 @@ namespace UI
 {
     partial class MainForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -25,10 +18,15 @@ namespace UI
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
+        public void PreInitial()
+        {
+            //this.radioButton2 = new MyRadioButton(0);
+            //this.radioButton3 = new MyRadioButton(1);
+            //this.radioButton4 = new MyRadioButton(2);
+            //this.radioButton5 = new MyRadioButton(3);
+            //this.Closing += OnClosing;
+        }
+
         private void InitializeComponent()
         {
             this.radioButton2 = new MyRadioButton(0);
@@ -143,6 +141,7 @@ namespace UI
             this.kSet.TabIndex = 3;
             this.kSet.Text = "Задать матрицу К";
             this.kSet.UseVisualStyleBackColor = true;
+            this.kSet.Click += new System.EventHandler(this.kSet_Click);
             // 
             // label1
             // 
@@ -195,6 +194,7 @@ namespace UI
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(175, 26);
             this.textBox2.TabIndex = 8;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox3
             // 
@@ -204,6 +204,7 @@ namespace UI
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(175, 26);
             this.textBox3.TabIndex = 9;
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // uSetBtn
             // 
@@ -215,6 +216,7 @@ namespace UI
             this.uSetBtn.TabIndex = 10;
             this.uSetBtn.Text = "Задать вектор U";
             this.uSetBtn.UseVisualStyleBackColor = true;
+            this.uSetBtn.Click += new System.EventHandler(this.uSetBtn_Click);
             // 
             // _uSetBtn
             // 
@@ -226,6 +228,7 @@ namespace UI
             this._uSetBtn.TabIndex = 11;
             this._uSetBtn.Text = "Задать векто Ů ";
             this._uSetBtn.UseVisualStyleBackColor = true;
+            this._uSetBtn.Click += new System.EventHandler(this._uSetBtn_Click);
             // 
             // rSetBtn
             // 
@@ -237,6 +240,7 @@ namespace UI
             this.rSetBtn.TabIndex = 12;
             this.rSetBtn.Text = "Задать вектор R";
             this.rSetBtn.UseVisualStyleBackColor = true;
+            this.rSetBtn.Click += new System.EventHandler(this.rSetBtn_Click);
             // 
             // groupBox1
             // 
@@ -272,6 +276,7 @@ namespace UI
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(75, 26);
             this.textBox4.TabIndex = 21;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label2
             // 
@@ -292,6 +297,7 @@ namespace UI
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(75, 26);
             this.textBox5.TabIndex = 23;
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             // 
             // label4
             // 

@@ -11,13 +11,12 @@ using MathNet.Numerics.LinearAlgebra.Double;
 using UI.Properties;
 
 namespace UI
-{ 
+{
     //TODO: 
     /// <summary>
     /// matrix k (as matrix M)
     /// alpha
     /// betha
-    /// U (as matrix M)
     /// U' (as matrix M)
     /// R (as matrix M)
     /// T0
@@ -35,8 +34,14 @@ namespace UI
         public MainForm()
         {
             _methods = new List<IMethod> { new CentralDifference(), new Habolt() };
+            PreInitial();
             InitializeComponent();
             InitializeControls();
+        }
+
+        private int ActiveMethod
+        {
+            get { return groupBox1.Controls.OfType<MyRadioButton>().First(x => x.Checked).Value; }
         }
 
         private void InitializeControls()
@@ -45,7 +50,30 @@ namespace UI
             _inputs.OnInputsUpdate += IsSolveBtnEnable;
 
             InitFreedomDegreese();
+            InitMethodSelector();
             IsSolveBtnEnable();
+            InitTValues();
+            AlphaBethaInit();
+        }
+
+        private void InitTValues()
+        {
+            textBox1.Text = _inputs.T0.ToString();
+            textBox2.Text = _inputs.DeltaT.ToString();
+            textBox3.Text = _inputs.Tk.ToString();
+        }
+
+        private void AlphaBethaInit()
+        {
+            textBox4.Text = _inputs.Alpha.ToString();
+            textBox5.Text = _inputs.Beta.ToString();
+        }
+
+        private void InitMethodSelector()
+        {
+            var methodRbtn = groupBox1.Controls.OfType<MyRadioButton>()
+                .First(x => x.Value == Int32.Parse(ConfigurationManager.AppSettings["method"]));
+            methodRbtn.Select();
         }
 
         private bool IsInputsReady()
@@ -69,15 +97,18 @@ namespace UI
         {
             _inputs.Serrialize(InputsPath);
             SaveFreedomDeegrese();
+            SaveSolveMethod();
         }
 
         private void solveBtn_Click(object sender, EventArgs e)
         {
             try
             {
-                _methods[groupBox1.Controls.OfType<MyRadioButton>().First(x => x.Checked).Value].Solve(_inputs);
+               var result =  _methods[ActiveMethod].Solve(_inputs);
+                var form = new ScheduleForm(result);
+                form.Show();
             }
-            catch (Exception)
+            catch (ArgumentOutOfRangeException)
             {
                 MessageBox.Show(Resources.mainForm_solveBtn_Click_Метод_не_реализован);
             }
@@ -113,6 +144,13 @@ namespace UI
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
             config.AppSettings.Settings["freedomDegreese"].Value = _freedomDegreese.ToString();
+            config.Save(ConfigurationSaveMode.Modified);
+        }
+
+        private void SaveSolveMethod()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+            config.AppSettings.Settings["method"].Value = ActiveMethod.ToString();
             config.Save(ConfigurationSaveMode.Modified);
         }
 
@@ -152,6 +190,73 @@ namespace UI
         private void MUpdateMatrix(IEnumerable<IEnumerable<double>> matrix)
         {
             _inputs.M = DenseMatrix.OfRows(matrix);
+        }
+
+        private void uSetBtn_Click(object sender, EventArgs e)
+        {
+            _inputs.MovementU = _inputs.MovementU ?? DenseVector.OfArray(new double[_freedomDegreese]);
+            var form = new MatrixForm("Вектор перемещений", _freedomDegreese, 1, _inputs.MovementU);
+            form.OnUpdateVector += uUpdateVector;
+            form.Show();
+        }
+
+        private void kSet_Click(object sender, EventArgs e)
+        {
+            _inputs.K = _inputs.K ?? DenseMatrix.OfArray(new double[_freedomDegreese, _freedomDegreese]);
+            var form = new MatrixForm("Матрица Жесткости", _freedomDegreese, _freedomDegreese, _inputs.K);
+            form.OnUpdateMatrix += KUpdateMatrix;
+            form.Show();
+        }
+
+        private void KUpdateMatrix(IEnumerable<IEnumerable<double>> matrix)
+        {
+            _inputs.K = DenseMatrix.OfRows(matrix);
+        }
+
+        private void _uSetBtn_Click(object sender, EventArgs e)
+        {
+            _inputs.SpeedU = _inputs.SpeedU ?? DenseVector.OfArray(new double[_freedomDegreese]);
+            var form = new MatrixForm("Вектор скоростей", _freedomDegreese, 1, _inputs.SpeedU);
+            form.OnUpdateVector += _uUpdateVector;
+            form.Show();
+        }
+
+        private void _uUpdateVector(IEnumerable<double> vector)
+        {
+            _inputs.SpeedU = DenseVector.OfEnumerable(vector);
+        }
+
+        private void rSetBtn_Click(object sender, EventArgs e)
+        {
+            _inputs.R = _inputs.R ?? new LoadsVector(new string[_freedomDegreese]);
+            var form = new MatrixForm("Вектор скоростей", _freedomDegreese, 1, _inputs.R);
+            form.OnLoadsVectorUpdate += rUpdateVector;
+            form.Show();
+        }
+
+        private void rUpdateVector(string[] vector)
+        {
+            _inputs.R = new LoadsVector(vector);
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            _inputs.Alpha = ProccessTextBoxValue(textBox4.Text);
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            _inputs.Beta = ProccessTextBoxValue(textBox5.Text);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            _inputs.DeltaT = ProccessTextBoxValue(textBox2.Text);
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            _inputs.Tk = ProccessTextBoxValue(textBox3.Text);
         }
     }
 }

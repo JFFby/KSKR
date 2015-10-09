@@ -25,7 +25,7 @@ namespace Domain.Common
             get { return _m == null ? null : DenseMatrix.OfRows(_m); }
             set
             {
-                _m = value.ToColumnArrays();
+                _m = value == null ? null : value.ToColumnArrays();
                 OnInputsUpdate();
             }
         }
@@ -35,7 +35,7 @@ namespace Domain.Common
             get { return  _k == null ? null : DenseMatrix.OfRows(_k); }
             set
             {
-                _k = value.ToColumnArrays();
+                _k = value == null ? null : value.ToColumnArrays();
                 OnInputsUpdate();
             }
         }
@@ -79,7 +79,7 @@ namespace Domain.Common
             get { return _u == null ? null : DenseVector.OfEnumerable(_u); }
             set
             {
-                _u = value.ToArray();
+                _u = value == null ? null : value.ToArray();
                 OnInputsUpdate();
             }
         }
@@ -89,7 +89,7 @@ namespace Domain.Common
             get { return _u_ == null ? null : DenseVector.OfEnumerable(_u_); }
             set
             {
-                _u_ = value.ToArray();
+                _u_ = value == null ? null : value.ToArray();
                 OnInputsUpdate();
             }
         }

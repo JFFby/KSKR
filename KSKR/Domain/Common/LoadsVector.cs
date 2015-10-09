@@ -6,21 +6,23 @@ using NCalc;
 
 namespace Domain.Common
 {
+
     public class LoadsVector
     {
-        private string[] vector;
-
         public LoadsVector(string[] vector)
         {
-            this.vector = vector;
+            this.Vector = vector;
         }
+
+
+        public string[] Vector { get; private set; }
 
         public Vector<double> ToVector(double t = 0)
         {
             var values = new List<double>();
-            for (int i = 0; i < vector.Length; i++)
+            for (int i = 0; i < Vector.Length; i++)
             {
-                var fn = PrepareParameters(vector[i]);
+                var fn = PrepareParameters(Vector[i]);
                 var expr = new Expression(fn, EvaluateOptions.IgnoreCase);
                 if (fn.Contains("[t]"))
                 {

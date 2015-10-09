@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using Domain.Common;
 using MathNet.Numerics.LinearAlgebra;
 using UI.Properties;
 
@@ -12,6 +13,8 @@ namespace UI
 
     public delegate void UpdateVector(IEnumerable<double> vector);
 
+    public delegate void UpdateLoadsVector(string[] vector);
+
     public partial class MatrixForm : Form
     {
         private const int cellHeight = 30;
@@ -20,6 +23,7 @@ namespace UI
 
         public event UpdateMatrix OnUpdateMatrix;
         public event UpdateVector OnUpdateVector;
+        public event UpdateLoadsVector OnLoadsVectorUpdate;
 
         public MatrixForm(string title, int columns, int rows, object algebraObject)
         {
@@ -65,6 +69,8 @@ namespace UI
                 if (obj is Matrix<double>) SetGridMatrixVlaues(obj as Matrix<double>, colCount, rowCount);
 
                 if (obj is Vector<double>) SetGridVectorValues(obj as Vector<double>, colCount);
+
+                if (obj is LoadsVector) SetGridLoadsVectorValues(obj as LoadsVector, colCount);
             }
         }
 
@@ -87,6 +93,16 @@ namespace UI
             }
         }
 
+        private void SetGridLoadsVectorValues(LoadsVector vector, int colCount)
+        {
+            for (int i = 0; i < colCount; i++)
+            {
+                dataGridView1.Rows[0].Cells[i].Value = vector.Vector == null
+                    ? "0"
+                    : string.IsNullOrEmpty(vector.Vector[i]) ? "0" : vector.Vector[i];
+            }
+        }
+
         private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
         {
             if (_algebraObject is Vector<double>)
@@ -97,6 +113,11 @@ namespace UI
             if (_algebraObject is Matrix<double>)
             {
                 OnUpdateMatrix(GetMatrixValue());
+            }
+
+            if (_algebraObject is LoadsVector)
+            {
+                OnLoadsVectorUpdate(GetLoadsVector());
             }
         }
 
@@ -141,6 +162,18 @@ namespace UI
                 MessageBox.Show(Resources.MainForm_ProccessTextBoxValue_Значение_должно_иметь_числовой_формат);
                 return default(double);
             }
+        }
+
+        private string[] GetLoadsVector()
+        {
+            var vector = new string[dataGridView1.ColumnCount];
+            for (int i = 0; i < dataGridView1.ColumnCount; i++)
+            {
+                var value = dataGridView1.Rows[0].Cells[i].Value;
+                vector[i] = string.IsNullOrEmpty(value == null ? "" : value.ToString()) ? "0" : value.ToString();
+            }
+
+            return vector;
         }
     }
 }
