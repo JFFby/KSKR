@@ -12,18 +12,7 @@ using UI.Properties;
 
 namespace UI
 {
-    //TODO: 
-    /// <summary>
-    /// matrix k (as matrix M)
-    /// alpha
-    /// betha
-    /// U' (as matrix M)
-    /// R (as matrix M)
-    /// T0
-    /// Tk
-    /// dT
-    /// Methods selection
-    /// </summary>
+
     public partial class MainForm : Form
     {
         private Inputs _inputs;
