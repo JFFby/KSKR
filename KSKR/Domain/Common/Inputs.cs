@@ -8,7 +8,7 @@ namespace Domain.Common
 {
     public delegate void InputsUpdate();
 
-   [JsonObject(MemberSerialization.OptIn)]
+    [JsonObject(MemberSerialization.OptIn)]
     public class Inputs
     {
         [JsonProperty]
@@ -26,17 +26,19 @@ namespace Domain.Common
             set
             {
                 _m = value == null ? null : value.ToColumnArrays();
-                OnInputsUpdate();
+                if (OnInputsUpdate != null)
+                    OnInputsUpdate();
             }
         }
 
         public Matrix<double> K
         {
-            get { return  _k == null ? null : DenseMatrix.OfRows(_k); }
+            get { return _k == null ? null : DenseMatrix.OfRows(_k); }
             set
             {
                 _k = value == null ? null : value.ToColumnArrays();
-                OnInputsUpdate();
+                if (OnInputsUpdate != null)
+                    OnInputsUpdate();
             }
         }
 
@@ -49,7 +51,8 @@ namespace Domain.Common
             set
             {
                 _tk = value;
-                OnInputsUpdate();
+                if (OnInputsUpdate != null)
+                    OnInputsUpdate();
             }
         }
 
@@ -59,7 +62,8 @@ namespace Domain.Common
             set
             {
                 _dt = value;
-                OnInputsUpdate();
+                if (OnInputsUpdate != null)
+                    OnInputsUpdate();
             }
         }
 
@@ -80,7 +84,8 @@ namespace Domain.Common
             set
             {
                 _u = value == null ? null : value.ToArray();
-                OnInputsUpdate();
+                if (OnInputsUpdate != null)
+                    OnInputsUpdate();
             }
         }
 
@@ -90,7 +95,8 @@ namespace Domain.Common
             set
             {
                 _u_ = value == null ? null : value.ToArray();
-                OnInputsUpdate();
+                if (OnInputsUpdate != null)
+                    OnInputsUpdate();
             }
         }
 
@@ -100,7 +106,8 @@ namespace Domain.Common
             set
             {
                 _r = value;
-                OnInputsUpdate();
+                if (OnInputsUpdate != null)
+                    OnInputsUpdate();
             }
         }
 
