@@ -7,10 +7,23 @@ using System.Threading.Tasks;
 
 namespace Domain.Vilsen
 {
-    public class Vilsen
+    public class Vilsen : IMethod
     {
         private const double teta = 1.4;
         private Inputs Inputs;
+
+        public IList<State> Solve(Inputs initialState)
+        {
+            Inputs = initialState;
+            var state = SolveInitialState();
+            return Solve(state);
+        }
+        private State SolveInitialState()
+        {
+            var rVector = Inputs.R.ToVector(Inputs.T0);
+            var u__ = (rVector - Inputs.C * Inputs.SpeedU - Inputs.K * Inputs.MovementU) * Inputs.M.Inverse();
+            return new State(Inputs.T0, rVector, Inputs.MovementU, Inputs.SpeedU, u__, null);
+        }
 
         private double[] IntegrationConstants()
         {
@@ -24,23 +37,25 @@ namespace Domain.Vilsen
             var a6 = 1 - (3 / teta);
             var a7 = dt / 2;
             var a8 = Math.Pow(dt, 2) / 6;
-            return new[] { a1, a2, a3, a4, a5, a6, a7, a8 };
+            return new[] {a0, a1, a2, a3, a4, a5, a6, a7, a8 };
         }
 
-        private IList<State> Solve(IList<State> states)
+        private IList<State> Solve(State state)
         {
+            var states = new List<State>();
             var dt = Inputs.DeltaT;
             var ic = IntegrationConstants();
             var effectiveK = Inputs.K + ic[0] * Inputs.M + ic[1] * Inputs.C;
-            for (double t = Inputs.T0; t < Inputs.Tk; t += Inputs.DeltaT)
+            //t+teta*dt ------ проверить
+            for (double t = Inputs.T0; t < Inputs.Tk; t += Inputs.DeltaT*teta)
             {
                 var lastState = states.Last();
                 var effectiveR = Inputs.R.ToVector(t) +
                     teta * (Inputs.R.ToVector(t + Inputs.DeltaT) - Inputs.R.ToVector(t)) +
-                    Inputs.M * (ic[0] * lastState.NextStateMovementU + ic[2] * lastState.MovementU +
+                    Inputs.M * (ic[0] * lastState.NextStateMovementU + ic[2] * lastState.NextStateMovementU +
                                               2 * lastState.NextStateMovementU) +
                     Inputs.C * (ic[1] * lastState.NextStateMovementU
-                                              + 2 * lastState.MovementU + ic[3] * lastState.NextStateMovementU);
+                                              + 2 * lastState.NextStateMovementU + ic[3] * lastState.NextStateMovementU);
 
                 var nextMovementU = effectiveR * effectiveK.Inverse();
 
@@ -48,9 +63,8 @@ namespace Domain.Vilsen
 
                 var nextSpeed = lastState.NextStateMovementU + ic[7] * (nextAcceleration + lastState.NextStateMovementU);
 
-                var move = lastState.NextStateMovementU + dt * lastState.NextStateMovementU + ic[8] * (nextAcceleration + (2 * lastState.NextStateMovementU));
+                var nextMove = lastState.NextStateMovementU + dt * (lastState.NextStateMovementU) + ic[8] * (nextAcceleration + 2 * lastState.NextStateMovementU);
 
-                var nextMove = lastState.NextStateMovementU + t * (lastState.MovementU) + ic[8] * (nextAcceleration + 2 * lastState.NextStateMovementU);
                 states.Add(new State(t, effectiveR, lastState.NextStateMovementU, nextSpeed, nextAcceleration,
                    nextMovementU));
             }

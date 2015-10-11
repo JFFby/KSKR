@@ -64,6 +64,8 @@
     <Compile Include="Methods\HaboltTest.cs" />
     <Compile Include="Libs\NCalcTest.cs" />
     <Compile Include="Libs\NumericsTest.cs" />
+    <Compile Include="Methods\NumarkTest.cs" />
+    <Compile Include="Methods\VilsonTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
