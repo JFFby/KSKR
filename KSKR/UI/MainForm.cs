@@ -89,11 +89,19 @@ namespace UI
             SaveSolveMethod();
         }
 
+        private void UpdateInput()
+        {
+            textBox1_TextChanged(textBox1, null);
+            textBox2_TextChanged(textBox2, null);
+            textBox3_TextChanged(textBox3, null);
+        }
+
         private void solveBtn_Click(object sender, EventArgs e)
         {
             try
             {
-               var result =  _methods[ActiveMethod].Solve(_inputs);
+                UpdateInput();
+                var result = _methods[ActiveMethod].Solve(_inputs);
                 var form = new ScheduleForm(result);
                 form.Show();
             }
