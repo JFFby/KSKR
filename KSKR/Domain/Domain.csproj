@@ -58,7 +58,9 @@
     <Compile Include="Common\LoadsVector.cs" />
     <Compile Include="Common\State.cs" />
     <Compile Include="Habolt\Habolt.cs" />
+    <Compile Include="Numark\Numark.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vilsen\Vilsen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
