@@ -73,6 +73,9 @@ namespace Domain.Common
         [JsonProperty]
         public double Beta { get; set; }
 
+        [JsonProperty]
+        public double Teta { get; set; }
+
         public Matrix<double> C
         {
             get { return _m != null && _k != null ? Alpha * K + Beta * M : null; }

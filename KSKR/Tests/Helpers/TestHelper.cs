@@ -21,7 +21,8 @@ namespace Tests.Helpers
                 SpeedU = DenseVector.OfArray(new double[] { 0, 0 }),
                 T0 = 0,
                 DeltaT = 0.28,
-                Tk = 5
+                Tk = 5,
+                Teta = 1.4
             };
         }
 

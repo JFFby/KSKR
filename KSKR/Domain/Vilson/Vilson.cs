@@ -10,7 +10,8 @@ namespace Domain.Vilson
 {
     public class Vilson : IMethod
     {
-        private const double teta = 1.4;
+       // private const double teta = 0;
+
         private Inputs Inputs;
 
         public IList<State> Solve(Inputs initialState)
@@ -29,6 +30,7 @@ namespace Domain.Vilson
         private double[] IntegrationConstants()
         {
             var dt = Inputs.DeltaT;
+            var teta = Inputs.Teta;
             var a0 = 6 / Math.Pow(teta * dt, 2);
             var a1 = 3 / (teta * dt);
             var a2 = 2 * a1;
@@ -49,11 +51,11 @@ namespace Domain.Vilson
             var effectiveK = Inputs.K + ic[0] * Inputs.M + ic[1] * Inputs.C;
             states.Add(state);
 
-            for (double t = Inputs.T0; t < Inputs.Tk; t += Inputs.DeltaT*teta)
+            for (double t = Inputs.T0; t < Inputs.Tk; t += Inputs.DeltaT* Inputs.Teta)
             {
                 var lastState = states.Last();
                 var effectiveR = Inputs.R.ToVector(t) +
-                    teta * (Inputs.R.ToVector(t + Inputs.DeltaT) - Inputs.R.ToVector(t)) +
+                    Inputs.Teta * (Inputs.R.ToVector(t + Inputs.DeltaT) - Inputs.R.ToVector(t)) +
                     Inputs.M * (ic[0] * lastState.MovementU + ic[2] * lastState.SpeedU +
                                               2 * lastState.AccelerationU) +
                     Inputs.C * (ic[1] * lastState.MovementU
