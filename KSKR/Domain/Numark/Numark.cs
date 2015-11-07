@@ -1,4 +1,5 @@
 ﻿using Domain.Common;
+using MathNet.Numerics.LinearAlgebra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,27 +45,27 @@ namespace Domain.Numark
         {
             var states = new List<State>();
             var ic = IntegrationConstants();
+            var pastU = state.MovementU;
             var effectiveK = Inputs.K + ic[0] * Inputs.M + ic[1] * Inputs.C;
+            states.Add(state);
             for (double t = Inputs.T0; t < Inputs.Tk; t += Inputs.DeltaT)
             {
                 var lastState = states.Last();
                 var effectiveR = Inputs.R.ToVector(t + Inputs.DeltaT) +
-                                    Inputs.M * (ic[0] * lastState.NextStateMovementU + ic[2] * lastState.NextStateMovementU +
-                                              ic[3] * lastState.NextStateMovementU) +
-                                    Inputs.C * (ic[1] * lastState.NextStateMovementU
-                                              + ic[4] * lastState.NextStateMovementU + ic[5] * lastState.NextStateMovementU);
+                                    Inputs.M * (ic[0] * lastState.MovementU + ic[2] * lastState.SpeedU +
+                                              ic[3] * lastState.AccelerationU) +
+                                    Inputs.C * (ic[1] * lastState.MovementU
+                                              + ic[4] * lastState.SpeedU + ic[5] * lastState.AccelerationU);
                 var nextMovementU = effectiveR * effectiveK.Inverse();
 
-                
+                var nextAcceleration = ic[0] * (nextMovementU - lastState.MovementU) - ic[2] * lastState.SpeedU -
+                                ic[3] * lastState.AccelerationU;
 
-                var nextAcceleration = ic[0] *(nextMovementU - lastState.NextStateMovementU) - ic[2] * lastState.NextStateMovementU -
-                                ic[3] * lastState.NextStateMovementU;
-
-                var nextSpeed = lastState.NextStateMovementU + ic[6] * lastState.NextStateMovementU +
+                var nextSpeed = lastState.SpeedU + ic[6] * lastState.AccelerationU +
                                 ic[7] * nextAcceleration;
 
-                states.Add(new State(t, effectiveR, lastState.NextStateMovementU, nextSpeed, nextAcceleration,
-                    nextMovementU));
+                states.Add(new State(t, effectiveR, nextMovementU, nextSpeed, nextAcceleration,
+                    lastState.NextStateMovementU));
                 
             }
             return states;

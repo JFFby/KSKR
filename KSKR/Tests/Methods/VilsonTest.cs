@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tests.Helpers;
-using Domain.Vilsen;
+using Domain.Vilson;
 namespace Tests.Methods
 {
     [TestClass]
@@ -15,12 +15,15 @@ namespace Tests.Methods
         public void VilsenResulTest()
         {
             var inputs = TestHelper.GetTestInputData();
-            Vilsen method = new Vilsen();
+            Vilson method = new Vilson();
 
             var result = method.Solve(inputs);
 
-            Assert.AreEqual(0, result[1].MovementU[0]);
+            TestHelper.Assert(0.00605, result[1].MovementU[0]);
             TestHelper.Assert(0.366, result[1].MovementU[1]);
+
+            TestHelper.Assert(0.952, result[5].MovementU[0]);
+            TestHelper.Assert(4.88, result[5].MovementU[1]);
 
         }
 

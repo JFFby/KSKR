@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Domain.CentralDifference;
 using Domain.Common;
 using Domain.Habolt;
+using Domain.Vilson;
+using Domain.Numark;
 using MathNet.Numerics.LinearAlgebra.Double;
 using UI.Properties;
 
@@ -22,7 +24,7 @@ namespace UI
 
         public MainForm()
         {
-            _methods = new List<IMethod> { new CentralDifference(), new Habolt() };
+            _methods = new List<IMethod> { new CentralDifference(), new Habolt(), new Vilson(), new Numark() };
             PreInitial();
             InitializeComponent();
             InitializeControls();

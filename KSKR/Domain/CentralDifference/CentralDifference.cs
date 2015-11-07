@@ -49,7 +49,6 @@ namespace Domain.CentralDifference
                 var accelerationU = ic[0] * (previosState.MovementU - 2 * previosState.NextStateMovementU + nextStateMovementU);
                 states.Add(new State(t, effectiveR, previosState.NextStateMovementU, speedU, accelerationU, nextStateMovementU));
             }
-
             return states;
         }
 
