@@ -19,15 +19,21 @@ namespace UI
     {
         private Inputs _inputs;
         private string InputsPath { get { return ConfigurationManager.AppSettings["inputsPath"]; } }
-        private readonly List<IMethod> _methods;
+        private readonly List<KeyValuePair<string, IMethod>> _methods;
         private int _freedomDegreese;
 
         public MainForm()
         {
-            _methods = new List<IMethod> { new CentralDifference(), new Habolt(), new Vilson(), new Numark() };
+            _methods = new List<KeyValuePair<string, IMethod>>
+            {
+                new KeyValuePair<string, IMethod>("Метод центральных разностей", new CentralDifference()),
+                new KeyValuePair<string, IMethod>("Метод Хаболта", new Habolt()),
+                new KeyValuePair<string, IMethod>("Метод Вилсона", new Vilson()),
+                new KeyValuePair<string, IMethod>("Метод Ньюмарка", new Numark())
+            };
             PreInitial();
             InitializeComponent();
-            InitializeControls();
+            InitializeControls();   
         }
 
         private int ActiveMethod
@@ -104,8 +110,9 @@ namespace UI
             try
             {
                 UpdateInput();
-                var result = _methods[ActiveMethod].Solve(_inputs);
-                var form = new ScheduleForm(result);
+                var method = _methods[ActiveMethod];
+                var result = method.Value.Solve(_inputs);
+                var form = new ScheduleForm(result, method.Key);
                 form.Show();
             }
             catch (ArgumentOutOfRangeException)

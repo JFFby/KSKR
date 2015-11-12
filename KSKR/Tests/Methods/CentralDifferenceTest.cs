@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.CentralDifference;
+﻿using Domain.CentralDifference;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tests.Helpers;
 

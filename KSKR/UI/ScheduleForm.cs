@@ -6,9 +6,10 @@ namespace UI
 {
     public partial class ScheduleForm : Form
     {
-        public ScheduleForm(IList<State> states)
+        public ScheduleForm(IList<State> states, string name)
         {
             InitializeComponent();
+            this.Text = name;
             DrawChart(states);
         }
 
