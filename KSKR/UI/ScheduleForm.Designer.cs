@@ -59,7 +59,7 @@
             series2.Name = "U2";
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(729, 493);
+            this.chart1.Size = new System.Drawing.Size(809, 493);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -67,7 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 517);
+            this.ClientSize = new System.Drawing.Size(833, 517);
             this.Controls.Add(this.chart1);
             this.Name = "ScheduleForm";
             this.Text = "ScheduleForm";

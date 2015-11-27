@@ -33,7 +33,7 @@ namespace UI
             };
             PreInitial();
             InitializeComponent();
-            InitializeControls();   
+            InitializeControls();
         }
 
         private int ActiveMethod
@@ -112,8 +112,14 @@ namespace UI
                 UpdateInput();
                 var method = _methods[ActiveMethod];
                 var result = method.Value.Solve(_inputs);
-                var form = new ScheduleForm(result, method.Key);
-                form.Show();
+                if (result.Any())
+                {
+                    var form = new ScheduleForm(result, method.Key);
+                    form.Show();
+
+                    var dataForm = new DataForm(result, method.Key);
+                    dataForm.Show();
+                }
             }
             catch (ArgumentOutOfRangeException)
             {

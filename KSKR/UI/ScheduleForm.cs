@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using Domain.Common;
 
 namespace UI
@@ -17,9 +18,22 @@ namespace UI
         {
             foreach (var state in states)
             {
-                chart1.Series[0].Points.AddXY(state.Time, state.MovementU[0]);
-                chart1.Series[1].Points.AddXY(state.Time, state.MovementU[1]);
+                for (var i = 0; i < state.MovementU.Count; ++i)
+                {
+                    if (chart1.Series.Count < i + 1)
+                    {
+                        var series = new Series("U" + (i + 1).ToString())
+                        {
+                            ChartType = SeriesChartType.Spline,
+                            BorderWidth = 3
+                        };
+                        chart1.Series.Add(series);
+                    }
+
+                    chart1.Series[i].Points.AddXY(state.Time, state.MovementU[i]);
+                }
             }
+
         }
     }
 }
