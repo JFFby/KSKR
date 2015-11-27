@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using Domain.CentralDifference;
@@ -124,6 +125,14 @@ namespace UI
             catch (ArgumentOutOfRangeException)
             {
                 MessageBox.Show(Resources.mainForm_solveBtn_Click_Метод_не_реализован);
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("Не удалось распознать аргументы.");
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Ошибка, повторите расчёт.");
             }
         }
 
@@ -275,6 +284,12 @@ namespace UI
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
             _inputs.Teta = ProccessTextBoxValue(textBox3.Text);
+        }
+
+        private void supportedFunctions_Click(object sender, EventArgs e)
+        {
+            string url = "https://ncalc.codeplex.com/wikipage?title=functions&referringTitle=Home";
+            Process.Start(url);
         }
     }
 }
