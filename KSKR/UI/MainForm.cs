@@ -65,7 +65,7 @@ namespace UI
         {
             textBox4.Text = _inputs.Alpha.ToString();
             textBox5.Text = _inputs.Beta.ToString();
-            textBox6.Text = _inputs.Beta.ToString();
+            textBox6.Text = _inputs.Teta.ToString();
         }
 
         private void InitMethodSelector()
@@ -283,7 +283,7 @@ namespace UI
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-            _inputs.Teta = ProccessTextBoxValue(textBox3.Text);
+           _inputs.Teta = ProccessTextBoxValue(textBox6.Text);
         }
 
         private void supportedFunctions_Click(object sender, EventArgs e)

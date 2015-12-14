@@ -200,37 +200,37 @@ namespace UI
             // 
             // uSetBtn
             // 
-            this.uSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.uSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.uSetBtn.Location = new System.Drawing.Point(13, 262);
-            this.uSetBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uSetBtn.Margin = new System.Windows.Forms.Padding(0);
             this.uSetBtn.Name = "uSetBtn";
-            this.uSetBtn.Size = new System.Drawing.Size(230, 41);
+            this.uSetBtn.Size = new System.Drawing.Size(230, 45);
             this.uSetBtn.TabIndex = 10;
-            this.uSetBtn.Text = "Задать вектор U";
+            this.uSetBtn.Text = "Задать вектор начальных условий U";
             this.uSetBtn.UseVisualStyleBackColor = true;
             this.uSetBtn.Click += new System.EventHandler(this.uSetBtn_Click);
             // 
             // _uSetBtn
             // 
-            this._uSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._uSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._uSetBtn.Location = new System.Drawing.Point(13, 313);
-            this._uSetBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this._uSetBtn.Margin = new System.Windows.Forms.Padding(0);
             this._uSetBtn.Name = "_uSetBtn";
-            this._uSetBtn.Size = new System.Drawing.Size(230, 41);
+            this._uSetBtn.Size = new System.Drawing.Size(230, 45);
             this._uSetBtn.TabIndex = 11;
-            this._uSetBtn.Text = "Задать векто Ů ";
+            this._uSetBtn.Text = "Задать векто начальных условий Ů ";
             this._uSetBtn.UseVisualStyleBackColor = true;
             this._uSetBtn.Click += new System.EventHandler(this._uSetBtn_Click);
             // 
             // rSetBtn
             // 
-            this.rSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rSetBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rSetBtn.Location = new System.Drawing.Point(13, 364);
-            this.rSetBtn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rSetBtn.Margin = new System.Windows.Forms.Padding(0);
             this.rSetBtn.Name = "rSetBtn";
-            this.rSetBtn.Size = new System.Drawing.Size(230, 41);
+            this.rSetBtn.Size = new System.Drawing.Size(230, 45);
             this.rSetBtn.TabIndex = 12;
-            this.rSetBtn.Text = "Задать вектор R";
+            this.rSetBtn.Text = "Задать вектор нагрузок R";
             this.rSetBtn.UseVisualStyleBackColor = true;
             this.rSetBtn.Click += new System.EventHandler(this.rSetBtn_Click);
             // 
@@ -305,13 +305,13 @@ namespace UI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label5.Location = new System.Drawing.Point(9, 32);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(144, 20);
             this.label5.TabIndex = 24;
-            this.label5.Text = "Степень свободы";
+            this.label5.Text = "Количество степеней\nсвободы";
             // 
             // numericUpDown1
             // 

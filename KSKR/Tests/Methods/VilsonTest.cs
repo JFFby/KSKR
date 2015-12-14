@@ -20,6 +20,9 @@ namespace Tests.Methods
             TestHelper.Assert(0.952, result[5].MovementU[0]);
             TestHelper.Assert(4.88, result[5].MovementU[1]);
 
+            TestHelper.Assert(2.82, result[10].MovementU[0]);
+            TestHelper.Assert(3.06, result[10].MovementU[1]);
+
         }
 
     }

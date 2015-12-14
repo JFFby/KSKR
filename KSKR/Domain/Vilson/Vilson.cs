@@ -48,7 +48,7 @@ namespace Domain.Vilson
             var effectiveK = Inputs.K + ic[0] * Inputs.M + ic[1] * Inputs.C;
             states.Add(state);
 
-            for (double t = Inputs.T0; t < Inputs.Tk; t += Inputs.DeltaT* Inputs.Teta)
+            for (double t = Inputs.T0; t < Inputs.Tk; t += Inputs.DeltaT*Inputs.Teta)
             {
                 var lastState = states.Last();
                 var effectiveR = Inputs.R.ToVector(t) +
@@ -62,7 +62,6 @@ namespace Domain.Vilson
                 var nextAcceleration = ic[4] * (nextMovementU - lastState.MovementU) + ic[5] * lastState.SpeedU + ic[6] * lastState.AccelerationU;
                 var nextSpeed = lastState.SpeedU + ic[7] * (nextAcceleration + lastState.AccelerationU);
                 var nextMove = lastState.MovementU + dt * lastState.SpeedU + ic[8] * (nextAcceleration + 2 * lastState.AccelerationU);
-
                 states.Add(new State(t, effectiveR, nextMove, nextSpeed, nextAcceleration,
                    nextMovementU));
             }
