@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Domain;
 using Domain.Common;
+using Domain.Enums;
 using MathNet.Numerics.LinearAlgebra;
 using UI.Properties;
 
@@ -20,6 +23,8 @@ namespace UI
         private const int cellHeight = 30;
         private const int cellwidth = 80;
         private object _algebraObject;
+        private readonly VectorType vectorType;
+        private int columns, rows;
 
         public event UpdateMatrix OnUpdateMatrix;
         public event UpdateVector OnUpdateVector;
@@ -29,21 +34,23 @@ namespace UI
         {
             InitializeComponent();
             Text = title;
+            this.columns = columns;
+            this.rows = rows;
             SetWndsize(columns, rows);
-            InitGrid(columns, rows);
-            SetGrid(algebraObject, columns, rows);
+            InitGrid();
+            vectorType = SetGrid(algebraObject, columns, rows);
             this._algebraObject = algebraObject;
         }
 
         private void SetWndsize(int column, int rows)
         {
             Width = cellwidth * column + 65;
-            Height = cellHeight * rows + 75;
+            Height = cellHeight * rows + 90;
             dataGridView1.Width = cellwidth * column + 40;
             dataGridView1.Height = cellHeight * rows + 60;
         }
 
-        private void InitGrid(int columns, int rows)
+        private void InitGrid()
         {
             for (int i = 0; i < columns; i++)
             {
@@ -62,16 +69,31 @@ namespace UI
             }
         }
 
-        private void SetGrid(object obj, int colCount, int rowCount)
+        private VectorType SetGrid(object obj, int colCount, int rowCount)
         {
+            var type = VectorType.Undefined;
             if (obj != null)
             {
-                if (obj is Matrix<double>) SetGridMatrixVlaues(obj as Matrix<double>, colCount, rowCount);
+                if (obj is Matrix<double>)
+                {
+                    SetGridMatrixVlaues(obj as Matrix<double>, colCount, rowCount);
+                    type = VectorType.Matrix;
+                }
 
-                if (obj is Vector<double>) SetGridVectorValues(obj as Vector<double>, colCount);
+                if (obj is Vector<double>)
+                {
+                    SetGridVectorValues(obj as Vector<double>, colCount);
+                    type = VectorType.Vector;
+                }
 
-                if (obj is LoadsVector) SetGridLoadsVectorValues(obj as LoadsVector, colCount);
+                if (obj is LoadsVector)
+                {
+                    SetGridLoadsVectorValues(obj as LoadsVector, colCount);
+                    type = VectorType.LoadsVector;
+                }
             }
+
+            return type;
         }
 
         private void SetGridMatrixVlaues(Matrix<double> matrix, int colCount, int rowCount)
@@ -174,6 +196,22 @@ namespace UI
             }
 
             return vector;
+        }
+
+        private void LoadFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                var vectorString = File.ReadAllText(openFileDialog1.FileName);
+                var matrixHelper = new MatrixHelper(vectorString, vectorType, columns, rows);
+                var result = matrixHelper.Resolve();
+                if (!string.IsNullOrEmpty(result.Item2))
+                {
+                    MessageBox.Show(result.Item2);
+                }
+
+                this.SetGrid(result.Item1, columns, rows);
+            }
         }
     }
 }

@@ -130,7 +130,7 @@ namespace UI
             {
                 MessageBox.Show("Не удалось распознать аргументы.");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show("Ошибка, повторите расчёт.");
             }
@@ -283,7 +283,7 @@ namespace UI
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-           _inputs.Teta = ProccessTextBoxValue(textBox6.Text);
+            _inputs.Teta = ProccessTextBoxValue(textBox6.Text);
         }
 
         private void supportedFunctions_Click(object sender, EventArgs e)

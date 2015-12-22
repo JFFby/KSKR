@@ -38,6 +38,12 @@ namespace Domain.Common
         private string PrepareParameters(string s)
         {
             const string pattern = @"(?<![.\d])(\d+)(?![.\d])";
+            const string replaceDelimiter = ",";
+            if (Regex.IsMatch(s, pattern))
+            {
+                s = Regex.Replace(s, replaceDelimiter, ".");
+            }
+
             if (Regex.IsMatch(s, pattern))
             {
                 s = Regex.Replace(s, pattern, x => x.Groups[1].Value + ".0");
