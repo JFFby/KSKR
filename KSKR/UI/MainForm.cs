@@ -321,5 +321,11 @@ namespace UI
             string url = "https://ncalc.codeplex.com/wikipage?title=functions&referringTitle=Home";
             Process.Start(url);
         }
+
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            string url = "help.html";
+            Process.Start(url);
+        }
     }
 }

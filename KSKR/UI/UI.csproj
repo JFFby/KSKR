@@ -136,6 +136,19 @@
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Image\mainForm.jpg" />
+    <Content Include="Image\matrixMass.jpg" />
+    <Content Include="Image\matrixRigidity.jpg" />
+    <Content Include="Image\numarkConst.jpg" />
+    <Content Include="Image\resultGraph.jpg" />
+    <Content Include="Image\resultNumberGraph.jpg" />
+    <Content Include="Image\resultTable.jpg" />
+    <Content Include="Image\vectorFirstN.jpg" />
+    <Content Include="Image\vectorSpeed.jpg" />
+    <Content Include="Image\vectroMove.jpg" />
+    <Content Include="Image\vilsonConst.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

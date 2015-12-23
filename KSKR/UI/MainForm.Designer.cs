@@ -20,16 +20,14 @@ namespace UI
 
         public void PreInitial()
         {
-            
-        }
-
-        private void InitializeComponent()
-        {
             this.radioButton2 = new MyRadioButton(0);
             this.radioButton3 = new MyRadioButton(1);
             this.radioButton4 = new MyRadioButton(2);
             this.radioButton5 = new MyRadioButton(3);
-            this.Closing += OnClosing;
+        }
+
+        private void InitializeComponent()
+        {
             this.mSet = new System.Windows.Forms.Button();
             this.kSet = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,10 +47,11 @@ namespace UI
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.supportedFunctions = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -262,7 +261,7 @@ namespace UI
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox4.Location = new System.Drawing.Point(34, 180);
+            this.textBox4.Location = new System.Drawing.Point(34, 231);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(75, 26);
@@ -273,7 +272,7 @@ namespace UI
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(8, 180);
+            this.label2.Location = new System.Drawing.Point(8, 231);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(18, 20);
@@ -283,7 +282,7 @@ namespace UI
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox5.Location = new System.Drawing.Point(168, 177);
+            this.textBox5.Location = new System.Drawing.Point(168, 228);
             this.textBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(75, 26);
@@ -294,7 +293,7 @@ namespace UI
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(142, 180);
+            this.label4.Location = new System.Drawing.Point(142, 231);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(18, 20);
@@ -308,7 +307,7 @@ namespace UI
             this.label5.Location = new System.Drawing.Point(9, 32);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(144, 20);
+            this.label5.Size = new System.Drawing.Size(152, 34);
             this.label5.TabIndex = 24;
             this.label5.Text = "Количество степеней\nсвободы";
             // 
@@ -337,7 +336,8 @@ namespace UI
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(554, 24);
@@ -359,11 +359,28 @@ namespace UI
             this.supportedFunctions.Text = "Поддерживаемые функции";
             this.supportedFunctions.Click += new System.EventHandler(this.supportedFunctions_Click);
             // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem1.Text = "Help";
+            this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 175);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(215, 40);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Коэффициенты для\r\nформирования матрицы С:";
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(554, 481);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox5);
@@ -430,6 +447,8 @@ namespace UI
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem supportedFunctions;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.Label label6;
     }
 }
 //this.radioButton2 = new MyRadioButton(0);
