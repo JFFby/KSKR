@@ -8,7 +8,7 @@ namespace Domain.Numark
     public class Numark : IMethod
     {
         private Inputs Inputs;
-        private const double alpha = 0.25;
+        private double alpha = 0.25;
         private double delta = 0.5;
 
         public IList<State> Solve(Inputs initialState)
@@ -26,15 +26,20 @@ namespace Domain.Numark
 
         private double[] IntegrationConstants()
         {
+            if(Inputs.Delta==0)
+            {
+                Inputs.Delta = delta;
+            }
+            alpha = 0.25 * Math.Pow((0.5 + Inputs.Delta),2);
             var dt = Inputs.DeltaT;
             var a0 = 1 / (alpha * Math.Pow(dt, 2));
-            var a1 = delta / (alpha * dt);
+            var a1 = Inputs.Delta / (alpha * dt);
             var a2 = 1 / (alpha * dt);
             var a3 = (1 / (2 * alpha)) - 1;
-            var a4 = (delta / alpha) - 1;
-            var a5 = (dt / 2) * ((delta / alpha) - 2);
-            var a6 = dt * (1 - delta);
-            var a7 = delta * dt;
+            var a4 = (Inputs.Delta / alpha) - 1;
+            var a5 = (dt / 2) * ((Inputs.Delta / alpha) - 2);
+            var a6 = dt * (1 - Inputs.Delta);
+            var a7 = Inputs.Delta * dt;
             return new[] {a0, a1, a2, a3, a4, a5, a6, a7 };
         }
 

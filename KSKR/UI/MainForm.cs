@@ -22,6 +22,7 @@ namespace UI
         private string InputsPath { get { return ConfigurationManager.AppSettings["inputsPath"]; } }
         private readonly List<KeyValuePair<string, IMethod>> _methods;
         private int _freedomDegreese;
+        private ConstansForm constantform = new ConstansForm();
 
         public MainForm()
         {
@@ -35,6 +36,17 @@ namespace UI
             PreInitial();
             InitializeComponent();
             InitializeControls();
+            constantform.FormClosing += Constantform_FormClosing;
+        }
+
+        private void Constantform_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                RunSolve();
+                constantform.Hide();
+            }
         }
 
         private int ActiveMethod
@@ -65,7 +77,6 @@ namespace UI
         {
             textBox4.Text = _inputs.Alpha.ToString();
             textBox5.Text = _inputs.Beta.ToString();
-            textBox6.Text = _inputs.Teta.ToString();
         }
 
         private void InitMethodSelector()
@@ -111,16 +122,13 @@ namespace UI
             try
             {
                 UpdateInput();
-                var method = _methods[ActiveMethod];
-                var result = method.Value.Solve(_inputs);
-                if (result.Any())
+                if(ActiveMethod==2) { ShowConstatntForm(1); }
+                else
+                if (ActiveMethod == 3) { ShowConstatntForm(2); }
+                else
                 {
-                    var form = new ScheduleForm(result, method.Key);
-                    form.Show();
-
-                    var dataForm = new DataForm(result, method.Key);
-                    dataForm.Show();
-                }
+                    RunSolve();
+                }             
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -134,6 +142,33 @@ namespace UI
             {
                 MessageBox.Show("Ошибка, повторите расчёт.");
             }
+        }
+
+        private void RunSolve()
+        {
+            var method = _methods[ActiveMethod];
+            var result = method.Value.Solve(_inputs);
+            if (result.Any())
+            {
+                var form = new ScheduleForm(result, method.Key);
+                form.Show();
+
+                var dataForm = new DataForm(result, method.Key);
+                dataForm.Show();
+            }
+        }
+
+        private void ShowConstatntForm(int index)
+        {
+            constantform.ChoiceMethod(index);
+            constantform.SetConstantsValue += Constantform_SetConstantsValue;
+            constantform.Show();
+        }
+
+        private void Constantform_SetConstantsValue(double constant, int indexMethod)
+        {
+            if (indexMethod == 1) { _inputs.Teta = constant; }
+            if (indexMethod == 2) { _inputs.Delta = constant; }
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -279,11 +314,6 @@ namespace UI
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
             _inputs.Tk = ProccessTextBoxValue(textBox3.Text);
-        }
-
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
-            _inputs.Teta = ProccessTextBoxValue(textBox6.Text);
         }
 
         private void supportedFunctions_Click(object sender, EventArgs e)

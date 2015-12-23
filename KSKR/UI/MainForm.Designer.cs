@@ -49,8 +49,7 @@ namespace UI
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.supportedFunctions = new System.Windows.Forms.ToolStripMenuItem();
@@ -335,23 +334,6 @@ namespace UI
             0,
             0});
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 223);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(18, 20);
-            this.label7.TabIndex = 26;
-            this.label7.Text = "θ";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(34, 220);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(75, 26);
-            this.textBox6.TabIndex = 27;
-            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -382,8 +364,6 @@ namespace UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(554, 481);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox5);
@@ -443,8 +423,6 @@ namespace UI
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
         private MyRadioButton radioButton2;
         private MyRadioButton radioButton3;
         private MyRadioButton radioButton4;

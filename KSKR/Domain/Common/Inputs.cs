@@ -21,6 +21,8 @@ namespace Domain.Common
         private double[][] _m, _k;
         [JsonProperty]
         private double _teta = 1.4;
+        [JsonProperty]
+        private double _delta = 0.5;
 
         public Matrix<double> M
         {
@@ -78,6 +80,13 @@ namespace Domain.Common
         [JsonProperty]
         public double Teta { get { return _teta; }
             set { _teta = value; } }
+
+        [JsonProperty]
+        public double Delta
+        {
+            get { return _delta; }
+            set { _delta = value; }
+        }
 
         public Matrix<double> C
         {

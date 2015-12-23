@@ -60,23 +60,34 @@ namespace UI
         private void RedrawStates(Action<State> action)
         {
             chart1.Series.Clear();
-            foreach (var state in states)
+            try
             {
-                action(state);
+                foreach (var state in states)
+                {
+                    action(state);
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Перемещение с данным номером отсутствует");
+                return;
             }
         }
 
         private void RenderMany(IList<int> indexes, State state)
         {
+
             for (int i = 0; i < indexes.Count; ++i)
             {
                 if (chart1.Series.Count < i + 1)
                 {
                     chart1.Series.Add(new Series("U" + indexes[i]) { ChartType = SeriesChartType.Spline, BorderWidth = 3 });
                 }
-
                 chart1.Series[i].Points.AddXY(state.Time, state.MovementU[indexes[i] - 1]);
+
             }
+
+
         }
 
         private void RenderWithInterval(int from, int to, State state)
