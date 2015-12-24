@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -25,6 +27,9 @@ namespace UI
         private object _algebraObject;
         private readonly VectorType vectorType;
         private int columns, rows;
+        private List<RadioButton> readingTypes;
+        private int readingType;
+        private bool isMatrix;
 
         public event UpdateMatrix OnUpdateMatrix;
         public event UpdateVector OnUpdateVector;
@@ -33,6 +38,10 @@ namespace UI
         public MatrixForm(string title, int columns, int rows, object algebraObject)
         {
             InitializeComponent();
+            isMatrix = algebraObject is Matrix<double>;
+            readingTypes = new List<RadioButton> { ordinarMatrix, lineMatrix };
+            readingType = Int32.Parse(ConfigurationManager.AppSettings["vectorReadingType"]);
+            InitRadioButtins();
             Text = title;
             this.columns = columns;
             this.rows = rows;
@@ -42,12 +51,27 @@ namespace UI
             this._algebraObject = algebraObject;
         }
 
+        private void InitRadioButtins()
+        {
+            if (isMatrix)
+            {
+                readingTypes[readingType].Checked = true;
+            }
+            else
+            {
+                groupBox1.Visible = false;
+                var location = dataGridView1.Location;
+                dataGridView1.Location = new Point(location.X, location.Y - 75);
+            }
+        }
+
         private void SetWndsize(int column, int rows)
         {
             Width = cellwidth * column + 65;
-            Height = cellHeight * rows + 90;
-            dataGridView1.Width = cellwidth * column + 40;
+            Height = cellHeight * rows + (isMatrix ? 165 : 90);
+            dataGridView1.Width = cellwidth * column + 45;
             dataGridView1.Height = cellHeight * rows + 60;
+            groupBox1.Width = dataGridView1.Width - 5;
         }
 
         private void InitGrid()
@@ -74,7 +98,7 @@ namespace UI
             var type = VectorType.Undefined;
             if (obj != null)
             {
-                if (obj is Matrix<double>)
+                if (isMatrix)
                 {
                     SetGridMatrixVlaues(obj as Matrix<double>, colCount, rowCount);
                     type = VectorType.Matrix;
@@ -132,7 +156,7 @@ namespace UI
                 OnUpdateVector(GetVectorValue());
             }
 
-            if (_algebraObject is Matrix<double>)
+            if (isMatrix)
             {
                 OnUpdateMatrix(GetMatrixValue());
             }
@@ -141,6 +165,19 @@ namespace UI
             {
                 OnLoadsVectorUpdate(GetLoadsVector());
             }
+
+            if (isMatrix)
+            {
+                SaveMatrixReadinType();
+            }
+        }
+
+        private void SaveMatrixReadinType()
+        {
+            Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
+            var number = this.readingTypes.IndexOf(this.readingTypes.First(x => x.Checked));
+            config.AppSettings.Settings["vectorReadingType"].Value = number.ToString();
+            config.Save(ConfigurationSaveMode.Modified);
         }
 
         private IEnumerable<double> GetVectorValue()
@@ -198,12 +235,17 @@ namespace UI
             return vector;
         }
 
+        private bool IsLinerReadingType()
+        {
+            return readingTypes[(int) MatrixReadingType.Liner].Checked;
+        }
+
         private void LoadFromFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var vectorString = File.ReadAllText(openFileDialog1.FileName);
-                var matrixHelper = new MatrixHelper(vectorString, vectorType, columns, rows);
+                var matrixHelper = new MatrixHelper(vectorString, vectorType, columns, rows, IsLinerReadingType());
                 var result = matrixHelper.Resolve();
                 if (!string.IsNullOrEmpty(result.Item2))
                 {

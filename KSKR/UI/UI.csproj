@@ -148,6 +148,12 @@
     <Content Include="Image\vectorSpeed.jpg" />
     <Content Include="Image\vectroMove.jpg" />
     <Content Include="Image\vilsonConst.jpg" />
+    <Content Include="TestInputs\K.txt" />
+    <Content Include="TestInputs\LM.txt" />
+    <Content Include="TestInputs\M.txt" />
+    <Content Include="TestInputs\MU.txt" />
+    <Content Include="TestInputs\R.txt" />
+    <Content Include="TestInputs\SU.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,17 +12,20 @@ namespace Domain
         private VectorType type;
         private string[][] matrix;
         private readonly int columns, rows;
+        private int k, m;
         private string error = null;
+        private bool isLinearMatrix;
 
-        public MatrixHelper(string vector, VectorType type, int columns, int rows)
+        public MatrixHelper(string vector, VectorType type, int columns, int rows, bool isLinearMatrix)
         {
             this.type = type;
             vectorString = vector;
             this.columns = columns;
             this.rows = rows;
-            matrix = SplitVector();
-
+            matrix = !isLinearMatrix ? SplitVector() : SplitLinerMatrix();
+            this.isLinearMatrix = isLinearMatrix;
         }
+
 
         public Tuple<object, string> Resolve()
         {
@@ -30,7 +33,7 @@ namespace Domain
             switch (type)
             {
                 case VectorType.Matrix:
-                    obj = CreateMatrix();
+                    obj = this.isLinearMatrix ? CreateLinearMatrix() : CreateMatrix();
                     break;
                 case VectorType.Vector:
                     obj = СreateVector();
@@ -60,6 +63,23 @@ namespace Domain
             return vector;
         }
 
+        private Matrix<double> CreateLinearMatrix()
+        {
+            var size = this.matrix.Length;
+            var b = k + m + 1;
+            var matr = Matrix<double>.Build.Dense(size, size);
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    int y = j - i + k;
+                    matr[i, j] = y >= 0 && y < b ? TryGetMatrixValue(i, y) : 0;
+                }
+            }
+
+            return matr;
+        }
+
         private Matrix<double> CreateMatrix()
         {
             var matr = Matrix<double>.Build.Dense(rows, columns);
@@ -87,10 +107,27 @@ namespace Domain
             }
         }
 
+        private string[][] SplitLinerMatrix()
+        {
+            var stringRows = vectorString.Split('\n');
+            m = Int32.Parse(stringRows[0].Trim());
+            k = Int32.Parse(stringRows[1].Trim());
+            var matrixRows = new string[stringRows.Length - 2];
+            Array.Copy(stringRows, 2, matrixRows, 0, stringRows.Length - 2);
+
+            return BuildVector(matrixRows);
+        }
+
         private string[][] SplitVector()
         {
             var stringRows = vectorString.Split('\n');
             CheckVectorSize(stringRows.Length == columns);
+
+            return BuildVector(stringRows);
+        }
+
+        private string[][] BuildVector(string[] stringRows)
+        {
             var vector = new string[stringRows.Length][];
             for (int i = 0; i < stringRows.Length; i++)
             {
