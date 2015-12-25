@@ -137,17 +137,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Image\mainForm.jpg" />
-    <Content Include="Image\matrixMass.jpg" />
-    <Content Include="Image\matrixRigidity.jpg" />
-    <Content Include="Image\numarkConst.jpg" />
-    <Content Include="Image\resultGraph.jpg" />
-    <Content Include="Image\resultNumberGraph.jpg" />
-    <Content Include="Image\resultTable.jpg" />
-    <Content Include="Image\vectorFirstN.jpg" />
-    <Content Include="Image\vectorSpeed.jpg" />
-    <Content Include="Image\vectroMove.jpg" />
-    <Content Include="Image\vilsonConst.jpg" />
+    <Content Include="Help\files\linearMatrix.png" />
+    <Content Include="Help\files\lMatrixFile.png" />
+    <Content Include="Help\files\mainForm.jpg" />
+    <Content Include="Help\files\matrix1.png" />
+    <Content Include="Help\files\matrixMass.png" />
+    <Content Include="Help\files\matrixRigidity.png" />
+    <Content Include="Help\files\numarkConst.jpg" />
+    <Content Include="Help\files\resultGraph.jpg" />
+    <Content Include="Help\files\resultNumberGraph.jpg" />
+    <Content Include="Help\files\resultTable.jpg" />
+    <Content Include="Help\files\sizeWarning.png" />
+    <Content Include="Help\files\vectorFirstN.jpg" />
+    <Content Include="Help\files\vectorSpeed.jpg" />
+    <Content Include="Help\files\vectroMove.jpg" />
+    <Content Include="Help\files\vilsonConst.jpg" />
+    <Content Include="Help\help.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestInputs\K.txt" />
     <Content Include="TestInputs\LM.txt" />
     <Content Include="TestInputs\M.txt" />

@@ -316,15 +316,9 @@ namespace UI
             _inputs.Tk = ProccessTextBoxValue(textBox3.Text);
         }
 
-        private void supportedFunctions_Click(object sender, EventArgs e)
-        {
-            string url = "https://ncalc.codeplex.com/wikipage?title=functions&referringTitle=Home";
-            Process.Start(url);
-        }
-
         private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            string url = "help.html";
+            string url = ConfigurationManager.AppSettings["help"];
             Process.Start(url);
         }
     }

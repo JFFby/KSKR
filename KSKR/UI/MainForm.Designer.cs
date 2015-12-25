@@ -48,8 +48,6 @@ namespace UI
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.supportedFunctions = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
@@ -250,7 +248,7 @@ namespace UI
             // 
             // solveBtn
             // 
-            this.solveBtn.Location = new System.Drawing.Point(168, 413);
+            this.solveBtn.Location = new System.Drawing.Point(168, 428);
             this.solveBtn.Name = "solveBtn";
             this.solveBtn.Size = new System.Drawing.Size(254, 41);
             this.solveBtn.TabIndex = 19;
@@ -261,7 +259,7 @@ namespace UI
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox4.Location = new System.Drawing.Point(34, 231);
+            this.textBox4.Location = new System.Drawing.Point(34, 228);
             this.textBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(75, 26);
@@ -336,28 +334,12 @@ namespace UI
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpToolStripMenuItem,
             this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(554, 24);
             this.menuStrip1.TabIndex = 28;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.supportedFunctions});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.helpToolStripMenuItem.Text = "Спрака";
-            // 
-            // supportedFunctions
-            // 
-            this.supportedFunctions.Name = "supportedFunctions";
-            this.supportedFunctions.Size = new System.Drawing.Size(225, 22);
-            this.supportedFunctions.Text = "Поддерживаемые функции";
-            this.supportedFunctions.Click += new System.EventHandler(this.supportedFunctions_Click);
             // 
             // helpToolStripMenuItem1
             // 
@@ -445,8 +427,6 @@ namespace UI
         private MyRadioButton radioButton4;
         private MyRadioButton radioButton5;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem supportedFunctions;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.Label label6;
     }
