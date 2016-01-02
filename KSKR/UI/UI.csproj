@@ -137,21 +137,51 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Help\files\linearMatrix.png" />
-    <Content Include="Help\files\lMatrixFile.png" />
-    <Content Include="Help\files\mainForm.jpg" />
-    <Content Include="Help\files\matrix1.png" />
-    <Content Include="Help\files\matrixMass.png" />
-    <Content Include="Help\files\matrixRigidity.png" />
-    <Content Include="Help\files\numarkConst.jpg" />
-    <Content Include="Help\files\resultGraph.jpg" />
-    <Content Include="Help\files\resultNumberGraph.jpg" />
-    <Content Include="Help\files\resultTable.jpg" />
-    <Content Include="Help\files\sizeWarning.png" />
-    <Content Include="Help\files\vectorFirstN.jpg" />
-    <Content Include="Help\files\vectorSpeed.jpg" />
-    <Content Include="Help\files\vectroMove.jpg" />
-    <Content Include="Help\files\vilsonConst.jpg" />
+    <Content Include="Help\files\linearMatrix.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\lMatrixFile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\mainForm.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\matrix1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\matrixMass.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\matrixRigidity.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\numarkConst.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\resultGraph.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\resultNumberGraph.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\resultTable.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\sizeWarning.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\vectorFirstN.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\vectorSpeed.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\vectroMove.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Help\files\vilsonConst.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Help\help.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

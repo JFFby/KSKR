@@ -35,6 +35,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.NumarkGroupBox = new System.Windows.Forms.GroupBox();
             this.VilsonGroupBox = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.NumarkGroupBox.SuspendLayout();
             this.VilsonGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -106,11 +107,22 @@
             this.VilsonGroupBox.TabStop = false;
             this.VilsonGroupBox.Text = "Метод Вилсона";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(85, 128);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(103, 35);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Ok";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ConstansForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(267, 136);
+            this.ClientSize = new System.Drawing.Size(267, 174);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.VilsonGroupBox);
             this.Controls.Add(this.NumarkGroupBox);
             this.Name = "ConstansForm";
@@ -132,5 +144,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox NumarkGroupBox;
         private System.Windows.Forms.GroupBox VilsonGroupBox;
+        private System.Windows.Forms.Button button1;
     }
 }
