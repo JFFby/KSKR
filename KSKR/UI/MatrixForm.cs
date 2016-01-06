@@ -33,6 +33,7 @@ namespace UI
         private readonly int readingType;
         private readonly int matrixType;
         private readonly bool isMatrix;
+        private readonly int minFormWidth = 345;
 
         public event UpdateMatrix OnUpdateMatrix;
         public event UpdateVector OnUpdateVector;
@@ -80,15 +81,22 @@ namespace UI
 
         private void SetWndsize(int column, int rows)
         {
-            Width = (cellwidth * column > groupBox1.Width) || !isMatrix 
+            Width = (cellwidth * column > minFormWidth) || !isMatrix 
                 ? cellwidth * column + (isMatrix ? 90 : 75)
-                : groupBox1.Width + 5;
+                : minFormWidth;
             Height = cellHeight * rows + (isMatrix ? 285 : 95);
             dataGridView1.Width = cellwidth * column + 45;
             dataGridView1.Height = cellHeight * rows + 60;
-            groupBox1.Width = dataGridView1.Width - 5;
-            groupBox2.Width = dataGridView1.Width - 5;
-            loadFromFileBtn.Width = dataGridView1.Width - 5;
+            var groupBoxWidth = Math.Max(groupBox2.Width, dataGridView1.Width - 5);
+            groupBox1.Width = groupBoxWidth;
+            groupBox2.Width = groupBoxWidth;
+            loadFromFileBtn.Width = groupBoxWidth;
+            if (dataGridView1.Width + 10 < Width && isMatrix)
+            {
+                var gridLocation = dataGridView1.Location;
+                var gridOffset = (int)(Width - dataGridView1.Width) / 2;
+                dataGridView1.Location = new Point(gridOffset, gridLocation.Y);
+            }
         }
 
         private void InitGrid()

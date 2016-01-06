@@ -52,7 +52,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LinerMatrixForm";
-            this.Text = "LinerMatrixForm";
+            this.Text = "Введите матрицу";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LinerMatrixForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
