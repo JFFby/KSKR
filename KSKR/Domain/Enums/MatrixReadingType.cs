@@ -2,6 +2,6 @@
 {
     public enum MatrixReadingType
     {
-        Ordinar, Liner
+        Typing, FromFile
     }
 }

@@ -20,16 +20,19 @@ namespace UI
 
     public delegate void UpdateLoadsVector(string[] vector);
 
-    public partial class MatrixForm : Form
+    internal partial class MatrixForm : Form
     {
         private const int cellHeight = 30;
         private const int cellwidth = 80;
-        private object _algebraObject;
+        private readonly object _algebraObject;
         private readonly VectorType vectorType;
-        private int columns, rows;
-        private List<RadioButton> readingTypes;
-        private int readingType;
-        private bool isMatrix;
+        private readonly int columns;
+        private readonly int rows;
+        private readonly List<RadioButton> readingTypes;
+        private readonly List<RadioButton> matrixTypes;
+        private readonly int readingType;
+        private readonly int matrixType;
+        private readonly bool isMatrix;
 
         public event UpdateMatrix OnUpdateMatrix;
         public event UpdateVector OnUpdateVector;
@@ -39,8 +42,10 @@ namespace UI
         {
             InitializeComponent();
             isMatrix = algebraObject is Matrix<double>;
-            readingTypes = new List<RadioButton> { ordinarMatrix, lineMatrix };
+            matrixTypes = new List<RadioButton> { ordinarMatrix, lineMatrix };
+            readingTypes = new List<RadioButton> { radioButton1, radioButton2 };
             readingType = Int32.Parse(ConfigurationManager.AppSettings["vectorReadingType"]);
+            matrixType = Int32.Parse(ConfigurationManager.AppSettings["matrixType"]);
             InitRadioButtins();
             Text = title;
             this.columns = columns;
@@ -53,25 +58,37 @@ namespace UI
 
         private void InitRadioButtins()
         {
+            label1.Visible = false;
+            loadFromFileBtn.Visible = false;
+            textBox1.Visible = false;
+            button2.Visible = false;
+            groupBox2.Visible = false;
             if (isMatrix)
             {
-                readingTypes[readingType].Checked = true;
+                dataGridView1.Visible = false;
+                matrixTypes[matrixType].Checked = true;
+                menuStrip1.Visible = false;
             }
             else
             {
+                dataGridView1.Visible = true;
                 groupBox1.Visible = false;
                 var location = dataGridView1.Location;
-                dataGridView1.Location = new Point(location.X, location.Y - 75);
+                dataGridView1.Location = new Point(location.X, location.Y - 160);
             }
         }
 
         private void SetWndsize(int column, int rows)
         {
-            Width = cellwidth * column + 65;
-            Height = cellHeight * rows + (isMatrix ? 165 : 90);
+            Width = (cellwidth * column > groupBox1.Width) || !isMatrix 
+                ? cellwidth * column + (isMatrix ? 90 : 75)
+                : groupBox1.Width + 5;
+            Height = cellHeight * rows + (isMatrix ? 285 : 95);
             dataGridView1.Width = cellwidth * column + 45;
             dataGridView1.Height = cellHeight * rows + 60;
             groupBox1.Width = dataGridView1.Width - 5;
+            groupBox2.Width = dataGridView1.Width - 5;
+            loadFromFileBtn.Width = dataGridView1.Width - 5;
         }
 
         private void InitGrid()
@@ -122,11 +139,29 @@ namespace UI
 
         private void SetGridMatrixVlaues(Matrix<double> matrix, int colCount, int rowCount)
         {
+            if (matrix.RowCount != rowCount || matrix.ColumnCount != colCount)
+            {
+                SetWithZero(colCount, rowCount);
+                return;
+            }
+
             for (int i = 0; i < rowCount; i++)
             {
                 for (int j = 0; j < colCount; j++)
                 {
                     dataGridView1.Rows[i].Cells[j].Value = matrix[i, j];
+                }
+            }
+        }
+
+        private void SetWithZero(int colCount, int rowCount)
+        {
+            MessageBox.Show("Текущая матрица имеет недопустимые размеры. Значения будут обнулены");
+            for (int i = 0; i < rowCount; i++)
+            {
+                for (int j = 0; j < colCount; j++)
+                {
+                    dataGridView1.Rows[i].Cells[j].Value = 0;
                 }
             }
         }
@@ -175,8 +210,10 @@ namespace UI
         private void SaveMatrixReadinType()
         {
             Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
-            var number = this.readingTypes.IndexOf(this.readingTypes.First(x => x.Checked));
-            config.AppSettings.Settings["vectorReadingType"].Value = number.ToString();
+            var rt = this.readingTypes.IndexOf(this.readingTypes.First(x => x.Checked));
+            var mt = this.matrixTypes.IndexOf(this.matrixTypes.First(x => x.Checked));
+            config.AppSettings.Settings["vectorReadingType"].Value = rt.ToString();
+            config.AppSettings.Settings["matrixType"].Value = mt.ToString();
             config.Save(ConfigurationSaveMode.Modified);
         }
 
@@ -237,10 +274,99 @@ namespace UI
 
         private bool IsLinerReadingType()
         {
-            return readingTypes[(int) MatrixReadingType.Liner].Checked;
+            return matrixTypes[(int)MatrixType.Linear].Checked;
         }
 
-        private void LoadFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void matrixtype_CheckedChanged(object sender, EventArgs e)
+        {
+            if (matrixTypes.Any(x => x.Checked))
+            {
+                if (groupBox2.Visible)
+                {
+                    var mt = (MatrixType)matrixTypes.IndexOf(matrixTypes.First(x => x.Checked));
+                    var rt = (MatrixReadingType)readingTypes.IndexOf(readingTypes.First(x => x.Checked));
+                    UpdateControlsVisibiblity(mt, rt);
+                }
+                else
+                {
+                    groupBox2.Visible = true;
+                    readingTypes[readingType].Checked = true;
+                }
+            }
+        }
+
+        private void readingType_CheckedChanged(object sender, EventArgs e)
+        {
+            if (readingTypes.Any(x => x.Checked))
+            {
+                var mt = (MatrixType)matrixTypes.IndexOf(matrixTypes.First(x => x.Checked));
+                var rt = (MatrixReadingType)readingTypes.IndexOf(readingTypes.First(x => x.Checked));
+                UpdateControlsVisibiblity(mt, rt);
+            }
+        }
+
+        private void UpdateControlsVisibiblity(MatrixType mt, MatrixReadingType rt)
+        {
+            if (mt == MatrixType.Normal && rt == MatrixReadingType.Typing)
+            {
+                dataGridView1.Visible = true;
+                label1.Visible = false;
+                loadFromFileBtn.Visible = false;
+                textBox1.Visible = false;
+                button2.Visible = false;
+            }
+
+            if (rt == MatrixReadingType.FromFile)
+            {
+                dataGridView1.Visible = false;
+                label1.Visible = false;
+                loadFromFileBtn.Visible = true;
+                textBox1.Visible = false;
+                button2.Visible = false;
+            }
+
+            if (mt == MatrixType.Linear && rt == MatrixReadingType.Typing)
+            {
+                dataGridView1.Visible = false;
+                label1.Visible = true;
+                loadFromFileBtn.Visible = false;
+                textBox1.Visible = true;
+                button2.Visible = true;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int lColCount = 0;
+            if (Int32.TryParse(textBox1.Text, out lColCount) && lColCount < columns && lColCount > 0)
+            {
+                var lmf = new LinerMatrixForm(lColCount, rows);
+                lmf.MatrixCreated += SetMatrixValue;
+                lmf.Show();
+            }
+            else
+            {
+                MessageBox.Show("Недопустимое значение, повторите попытку");
+            }
+        }
+
+        private void SetMatrixValue(object sender, LinerMatrixCreationEventArgs e)
+        {
+            SetGridMatrixVlaues(e.Matrix, e.Matrix.ColumnCount, e.Matrix.ColumnCount);
+            dataGridView1.Visible = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ReadFromFile();
+        }
+
+        private void считатьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReadFromFile();
+        }
+
+        private void ReadFromFile()
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -253,6 +379,7 @@ namespace UI
                 }
 
                 this.SetGrid(result.Item1, columns, rows);
+                dataGridView1.Visible = true;
             }
         }
     }

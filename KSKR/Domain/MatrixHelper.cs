@@ -26,6 +26,27 @@ namespace Domain
             this.isLinearMatrix = isLinearMatrix;
         }
 
+        public static Matrix<double> LinearToNormal(Matrix<double> linear, int width)
+        {
+            var b = 1 + width * 2;
+            return Convert(linear.RowCount, b, width, (i, j) => linear[i, j]);
+        }
+
+
+        private static Matrix<double> Convert(int size, int b, int f, Func<int, int, double> getMatrixItem)
+        {
+            var matr = Matrix<double>.Build.Dense(size, size);
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    int y = j - i + f;
+                    matr[i, j] = y >= 0 && y < b ? getMatrixItem(i, y) : 0;
+                }
+            }
+
+            return matr;
+        }
 
         public Tuple<object, string> Resolve()
         {
@@ -65,19 +86,8 @@ namespace Domain
 
         private Matrix<double> CreateLinearMatrix()
         {
-            var size = this.matrix.Length;
             var b = k + m + 1;
-            var matr = Matrix<double>.Build.Dense(size, size);
-            for (int i = 0; i < size; i++)
-            {
-                for (int j = 0; j < size; j++)
-                {
-                    int y = j - i + k;
-                    matr[i, j] = y >= 0 && y < b ? TryGetMatrixValue(i, y) : 0;
-                }
-            }
-
-            return matr;
+            return Convert(this.matrix.Length, b, k, TryGetMatrixValue);
         }
 
         private Matrix<double> CreateMatrix()
@@ -110,10 +120,9 @@ namespace Domain
         private string[][] SplitLinerMatrix()
         {
             var stringRows = vectorString.Split('\n');
-            m = Int32.Parse(stringRows[0].Trim());
-            k = Int32.Parse(stringRows[1].Trim());
-            var matrixRows = new string[stringRows.Length - 2];
-            Array.Copy(stringRows, 2, matrixRows, 0, stringRows.Length - 2);
+            m = k = Int32.Parse(stringRows[0].Trim());
+            var matrixRows = new string[stringRows.Length - 1];
+            Array.Copy(stringRows, 1, matrixRows, 0, stringRows.Length - 1);
 
             return BuildVector(matrixRows);
         }
@@ -121,6 +130,7 @@ namespace Domain
         private string[][] SplitVector()
         {
             var stringRows = vectorString.Split('\n');
+            RemoveColWidth(ref stringRows);
             CheckVectorSize(stringRows.Length == columns);
 
             return BuildVector(stringRows);
@@ -136,6 +146,16 @@ namespace Domain
             }
 
             return vector;
+        }
+
+        private void RemoveColWidth(ref string[] stringRows)
+        {
+            if (stringRows[0].Trim().Split(' ').Length == 1 && stringRows[1].Trim().Split(' ').Length > 1) 
+            {
+                var matrixRows = new string[stringRows.Length - 1];
+                Array.Copy(stringRows, 1, matrixRows, 0, stringRows.Length - 1);
+                stringRows = matrixRows;
+            }
         }
 
         private void SetParseError(int i, int j)

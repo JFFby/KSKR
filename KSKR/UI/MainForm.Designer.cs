@@ -20,14 +20,23 @@ namespace UI
 
         public void PreInitial()
         {
-            this.radioButton2 = new MyRadioButton(0);
-            this.radioButton3 = new MyRadioButton(1);
-            this.radioButton4 = new MyRadioButton(2);
-            this.radioButton5 = new MyRadioButton(3);
+            if (radioButton2 == null)
+            {
+                this.radioButton2 = new MyRadioButton(0);
+                this.radioButton3 = new MyRadioButton(1);
+                this.radioButton4 = new MyRadioButton(2);
+                this.radioButton5 = new MyRadioButton(3);
+            }
         }
+        //this.radioButton2 = new MyRadioButton(0);
+        //this.radioButton3 = new MyRadioButton(1);
+        //this.radioButton4 = new MyRadioButton(2);
+        //this.radioButton5 = new MyRadioButton(3);
+        //this.Closing += OnClosing;
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mSet = new System.Windows.Forms.Button();
             this.kSet = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,6 +59,7 @@ namespace UI
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -345,7 +355,7 @@ namespace UI
             // helpToolStripMenuItem1
             // 
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(43, 20);
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem1.Text = "Help";
             this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
@@ -361,6 +371,11 @@ namespace UI
             this.groupBox2.TabIndex = 30;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Коэффициенты для формирования матрицы демпфированя С = α*K + β*M";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // MainForm
             // 
@@ -432,10 +447,6 @@ namespace UI
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
-//this.radioButton2 = new MyRadioButton(0);
-//this.radioButton3 = new MyRadioButton(1);
-//this.radioButton4 = new MyRadioButton(2);
-//this.radioButton5 = new MyRadioButton(3);
-//this.Closing += OnClosing;

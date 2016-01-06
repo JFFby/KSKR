@@ -16,7 +16,7 @@ namespace UI
             InitializeComponent();
             Text = methodName;
             var columns = states.First().MovementU.Count + 1;
-            var rows = states.Count();
+            var rows = states.Count;
             InitGrid(columns, rows, states);
             SetWndsize(columns, rows);
         }

@@ -22,7 +22,7 @@ namespace UI
         private string InputsPath { get { return ConfigurationManager.AppSettings["inputsPath"]; } }
         private readonly List<KeyValuePair<string, IMethod>> _methods;
         private int _freedomDegreese;
-        private ConstansForm constantform = new ConstansForm();
+        private readonly ConstansForm constantform = new ConstansForm();
 
         public MainForm()
         {
@@ -192,8 +192,12 @@ namespace UI
             {
                 _freedomDegreese = 2;
             }
-
-            numericUpDown1.Value = _freedomDegreese;
+            numericUpDown1.Maximum = 6;
+            numericUpDown1.Minimum = 2;
+            numericUpDown1.Value = numericUpDown1.Maximum > _freedomDegreese
+                                   && numericUpDown1.Minimum < _freedomDegreese
+                ? _freedomDegreese
+                : 2; 
             numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
         }
 
